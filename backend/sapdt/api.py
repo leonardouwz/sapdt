@@ -4,6 +4,7 @@ import csv
 import io
 import json
 import math
+import os
 import sqlite3
 import sys
 import unicodedata
@@ -345,7 +346,7 @@ class Manejador(BaseHTTPRequestHandler):
     def _enviar(self, estado, datos, tipo, descarga=None):
         self.send_response(estado)
         self.send_header("Content-Type", tipo)
-        self.send_header("Access-Control-Allow-Origin", "*")  # ponytail: abierto para desarrollo local; restringir al dominio del frontend al desplegar
+        self.send_header("Access-Control-Allow-Origin", os.environ.get("ALLOWED_ORIGIN", "*"))  # en la nube: ALLOWED_ORIGIN = URL de la interfaz
         self.send_header("Access-Control-Expose-Headers", "Content-Disposition")
         if descarga:
             self.send_header("Content-Disposition", descarga)
@@ -361,9 +362,9 @@ def main(argv):
     if not argv:
         sys.exit(__doc__)
     Manejador.base = argv[0]
-    puerto = int(argv[1]) if len(argv) > 1 else 8000
+    puerto = int(os.environ.get("PORT") or (argv[1] if len(argv) > 1 else 8000))  # Cloud Run define PORT
     print(f"API SAPDT en http://localhost:{puerto}/api  (base: {argv[0]})")
-    ThreadingHTTPServer(("127.0.0.1", puerto), Manejador).serve_forever()
+    ThreadingHTTPServer((os.environ.get("HOST", "127.0.0.1"), puerto), Manejador).serve_forever()  # en el contenedor: HOST=0.0.0.0
 
 
 if __name__ == "__main__":

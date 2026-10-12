@@ -2,7 +2,7 @@ node_modules/
 __pycache__/
 *.pyc
 *-journal
-.env*
+.env.local
 *.local
 .output/
 .wrangler/
