@@ -3,6 +3,12 @@
 Proyecto de Calidad de Software (Universidad La Salle, 2026-VIII). Usa datos abiertos de MINCETUR
 (ocupabilidad de hospedajes 2015–jun 2025 y directorio de establecimientos calificados).
 
+## En la nube (Google Cloud Run)
+- Interfaz: https://sapdt-web-606560700752.us-central1.run.app
+- API: https://sapdt-api-606560700752.us-central1.run.app/api/regiones/04
+
+Cómo se desplegó: ver `DEPLOY.md`.
+
 ## Carpetas
 | Carpeta | Contenido |
 |---|---|
