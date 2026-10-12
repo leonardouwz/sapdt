@@ -1,0 +1,22 @@
+@startuml
+skinparam shadowing false
+skinparam dpi 130
+skinparam defaultFontName Arial
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #2F5D8C
+}
+skinparam usecase {
+  BackgroundColor #EAF2FB
+  BorderColor #2F5D8C
+}
+title DFD nivel 0 (contexto) — SAPDT
+left to right direction
+rectangle "Portal de datos abiertos\n(MINCETUR)" as P
+rectangle "Analista turístico" as U
+usecase "0\nSistema de Análisis y\nProyección de Demanda\nTurística Regional" as S
+P --> S : archivos CSV de ocupabilidad\ny directorio de hospedajes
+U --> S : región, rango de fechas,\nmodelo y formato elegidos
+S --> U : series, temporadas,\nproyecciones y reportes
+S --> U : reporte de calidad\nde datos
+@enduml

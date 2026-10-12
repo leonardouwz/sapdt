@@ -1,0 +1,76 @@
+﻿cod,region,modelo,mae,mape_pct,confiable
+01,AMAZONAS,promedio_movil,4747,13.9,sí
+01,AMAZONAS,suavizado_exponencial,4530,13.2,sí
+01,AMAZONAS,estacional_ingenuo,2921,8.7,sí
+02,ÁNCASH,promedio_movil,8518,8.0,sí
+02,ÁNCASH,suavizado_exponencial,8169,7.7,sí
+02,ÁNCASH,estacional_ingenuo,6727,6.7,sí
+03,APURÍMAC,promedio_movil,2618,7.2,sí
+03,APURÍMAC,suavizado_exponencial,2673,7.3,sí
+03,APURÍMAC,estacional_ingenuo,2596,7.1,sí
+04,AREQUIPA,promedio_movil,15705,10.5,sí
+04,AREQUIPA,suavizado_exponencial,16561,10.9,sí
+04,AREQUIPA,estacional_ingenuo,16369,10.8,sí
+05,AYACUCHO,promedio_movil,4322,12.2,sí
+05,AYACUCHO,suavizado_exponencial,3563,10.0,sí
+05,AYACUCHO,estacional_ingenuo,3710,11.1,sí
+06,CAJAMARCA,promedio_movil,7638,10.8,sí
+06,CAJAMARCA,suavizado_exponencial,7703,10.9,sí
+06,CAJAMARCA,estacional_ingenuo,6769,9.1,sí
+07,CALLAO,promedio_movil,16927,9.0,sí
+07,CALLAO,suavizado_exponencial,18364,9.8,sí
+07,CALLAO,estacional_ingenuo,33320,18.4,sí
+08,CUSCO,promedio_movil,43496,17.7,sí
+08,CUSCO,suavizado_exponencial,42568,17.1,sí
+08,CUSCO,estacional_ingenuo,30921,10.1,sí
+09,HUANCAVELICA,promedio_movil,1040,7.2,sí
+09,HUANCAVELICA,suavizado_exponencial,1051,7.3,sí
+09,HUANCAVELICA,estacional_ingenuo,1363,9.3,sí
+10,HUÁNUCO,promedio_movil,9184,13.3,sí
+10,HUÁNUCO,suavizado_exponencial,7985,11.5,sí
+10,HUÁNUCO,estacional_ingenuo,5074,7.4,sí
+11,ICA,promedio_movil,24166,16.2,sí
+11,ICA,suavizado_exponencial,22910,15.3,sí
+11,ICA,estacional_ingenuo,12731,8.8,sí
+12,JUNÍN,promedio_movil,28840,19.6,sí
+12,JUNÍN,suavizado_exponencial,27485,18.6,sí
+12,JUNÍN,estacional_ingenuo,24746,16.9,sí
+13,LA LIBERTAD,promedio_movil,5441,5.7,sí
+13,LA LIBERTAD,suavizado_exponencial,3643,3.9,sí
+13,LA LIBERTAD,estacional_ingenuo,18521,20.1,sí
+14,LAMBAYEQUE,promedio_movil,11550,14.5,sí
+14,LAMBAYEQUE,suavizado_exponencial,10824,13.5,sí
+14,LAMBAYEQUE,estacional_ingenuo,10153,12.7,sí
+15,LIMA,promedio_movil,197720,6.4,sí
+15,LIMA,suavizado_exponencial,206019,6.7,sí
+15,LIMA,estacional_ingenuo,170444,5.7,sí
+16,LORETO,promedio_movil,3264,9.8,sí
+16,LORETO,suavizado_exponencial,3659,10.9,sí
+16,LORETO,estacional_ingenuo,2312,6.5,sí
+17,MADRE DE DIOS,promedio_movil,5404,10.4,sí
+17,MADRE DE DIOS,suavizado_exponencial,5179,10.0,sí
+17,MADRE DE DIOS,estacional_ingenuo,6770,13.4,sí
+18,MOQUEGUA,promedio_movil,4344,16.8,sí
+18,MOQUEGUA,suavizado_exponencial,3612,13.8,sí
+18,MOQUEGUA,estacional_ingenuo,3668,14.4,sí
+19,PASCO,promedio_movil,5522,14.4,sí
+19,PASCO,suavizado_exponencial,5524,15.0,sí
+19,PASCO,estacional_ingenuo,3418,10.0,sí
+20,PIURA,promedio_movil,20994,20.2,sí
+20,PIURA,suavizado_exponencial,19844,19.6,sí
+20,PIURA,estacional_ingenuo,17441,18.2,sí
+21,PUNO,promedio_movil,7546,7.8,sí
+21,PUNO,suavizado_exponencial,7604,7.9,sí
+21,PUNO,estacional_ingenuo,7472,7.6,sí
+22,SAN MARTÍN,promedio_movil,10455,10.9,sí
+22,SAN MARTÍN,suavizado_exponencial,9026,9.4,sí
+22,SAN MARTÍN,estacional_ingenuo,7095,7.7,sí
+23,TACNA,promedio_movil,10107,22.4,sí
+23,TACNA,suavizado_exponencial,7534,15.8,sí
+23,TACNA,estacional_ingenuo,4403,11.8,sí
+24,TUMBES,promedio_movil,7393,24.3,sí
+24,TUMBES,suavizado_exponencial,6908,22.7,sí
+24,TUMBES,estacional_ingenuo,2510,8.7,sí
+25,UCAYALI,promedio_movil,2402,8.3,sí
+25,UCAYALI,suavizado_exponencial,1699,5.8,sí
+25,UCAYALI,estacional_ingenuo,1647,5.8,sí

@@ -1,0 +1,151 @@
+﻿cod,region,modelo,anio,mes,arribos_proyectados,mape_pct
+01,AMAZONAS,estacional_ingenuo,2025,7,36517,8.7
+01,AMAZONAS,estacional_ingenuo,2025,8,37448,8.7
+01,AMAZONAS,estacional_ingenuo,2025,9,34139,8.7
+01,AMAZONAS,estacional_ingenuo,2025,10,35487,8.7
+01,AMAZONAS,estacional_ingenuo,2025,11,30915,8.7
+01,AMAZONAS,estacional_ingenuo,2025,12,32508,8.7
+02,ÁNCASH,estacional_ingenuo,2025,7,116019,6.7
+02,ÁNCASH,estacional_ingenuo,2025,8,107948,6.7
+02,ÁNCASH,estacional_ingenuo,2025,9,92980,6.7
+02,ÁNCASH,estacional_ingenuo,2025,10,99842,6.7
+02,ÁNCASH,estacional_ingenuo,2025,11,92741,6.7
+02,ÁNCASH,estacional_ingenuo,2025,12,90894,6.7
+03,APURÍMAC,estacional_ingenuo,2025,7,38169,7.1
+03,APURÍMAC,estacional_ingenuo,2025,8,38698,7.1
+03,APURÍMAC,estacional_ingenuo,2025,9,36081,7.1
+03,APURÍMAC,estacional_ingenuo,2025,10,34852,7.1
+03,APURÍMAC,estacional_ingenuo,2025,11,37699,7.1
+03,APURÍMAC,estacional_ingenuo,2025,12,34673,7.1
+04,AREQUIPA,promedio_movil,2025,7,148373,10.5
+04,AREQUIPA,promedio_movil,2025,8,148373,10.5
+04,AREQUIPA,promedio_movil,2025,9,148373,10.5
+04,AREQUIPA,promedio_movil,2025,10,148373,10.5
+04,AREQUIPA,promedio_movil,2025,11,148373,10.5
+04,AREQUIPA,promedio_movil,2025,12,148373,10.5
+05,AYACUCHO,suavizado_exponencial,2025,7,32559,10.0
+05,AYACUCHO,suavizado_exponencial,2025,8,32559,10.0
+05,AYACUCHO,suavizado_exponencial,2025,9,32559,10.0
+05,AYACUCHO,suavizado_exponencial,2025,10,32559,10.0
+05,AYACUCHO,suavizado_exponencial,2025,11,32559,10.0
+05,AYACUCHO,suavizado_exponencial,2025,12,32559,10.0
+06,CAJAMARCA,estacional_ingenuo,2025,7,84387,9.1
+06,CAJAMARCA,estacional_ingenuo,2025,8,75554,9.1
+06,CAJAMARCA,estacional_ingenuo,2025,9,70522,9.1
+06,CAJAMARCA,estacional_ingenuo,2025,10,71016,9.1
+06,CAJAMARCA,estacional_ingenuo,2025,11,58472,9.1
+06,CAJAMARCA,estacional_ingenuo,2025,12,53655,9.1
+07,CALLAO,promedio_movil,2025,7,170994,9.0
+07,CALLAO,promedio_movil,2025,8,170994,9.0
+07,CALLAO,promedio_movil,2025,9,170994,9.0
+07,CALLAO,promedio_movil,2025,10,170994,9.0
+07,CALLAO,promedio_movil,2025,11,170994,9.0
+07,CALLAO,promedio_movil,2025,12,170994,9.0
+08,CUSCO,estacional_ingenuo,2025,7,340917,10.1
+08,CUSCO,estacional_ingenuo,2025,8,322642,10.1
+08,CUSCO,estacional_ingenuo,2025,9,299495,10.1
+08,CUSCO,estacional_ingenuo,2025,10,299261,10.1
+08,CUSCO,estacional_ingenuo,2025,11,273786,10.1
+08,CUSCO,estacional_ingenuo,2025,12,244425,10.1
+09,HUANCAVELICA,promedio_movil,2025,7,15141,7.2
+09,HUANCAVELICA,promedio_movil,2025,8,15141,7.2
+09,HUANCAVELICA,promedio_movil,2025,9,15141,7.2
+09,HUANCAVELICA,promedio_movil,2025,10,15141,7.2
+09,HUANCAVELICA,promedio_movil,2025,11,15141,7.2
+09,HUANCAVELICA,promedio_movil,2025,12,15141,7.2
+10,HUÁNUCO,estacional_ingenuo,2025,7,69954,7.4
+10,HUÁNUCO,estacional_ingenuo,2025,8,75405,7.4
+10,HUÁNUCO,estacional_ingenuo,2025,9,62168,7.4
+10,HUÁNUCO,estacional_ingenuo,2025,10,69416,7.4
+10,HUÁNUCO,estacional_ingenuo,2025,11,58825,7.4
+10,HUÁNUCO,estacional_ingenuo,2025,12,64117,7.4
+11,ICA,estacional_ingenuo,2025,7,147758,8.8
+11,ICA,estacional_ingenuo,2025,8,151348,8.8
+11,ICA,estacional_ingenuo,2025,9,129500,8.8
+11,ICA,estacional_ingenuo,2025,10,153773,8.8
+11,ICA,estacional_ingenuo,2025,11,136207,8.8
+11,ICA,estacional_ingenuo,2025,12,136842,8.8
+12,JUNÍN,estacional_ingenuo,2025,7,163277,16.9
+12,JUNÍN,estacional_ingenuo,2025,8,153033,16.9
+12,JUNÍN,estacional_ingenuo,2025,9,131355,16.9
+12,JUNÍN,estacional_ingenuo,2025,10,132280,16.9
+12,JUNÍN,estacional_ingenuo,2025,11,153632,16.9
+12,JUNÍN,estacional_ingenuo,2025,12,144961,16.9
+13,LA LIBERTAD,suavizado_exponencial,2025,7,92139,3.9
+13,LA LIBERTAD,suavizado_exponencial,2025,8,92139,3.9
+13,LA LIBERTAD,suavizado_exponencial,2025,9,92139,3.9
+13,LA LIBERTAD,suavizado_exponencial,2025,10,92139,3.9
+13,LA LIBERTAD,suavizado_exponencial,2025,11,92139,3.9
+13,LA LIBERTAD,suavizado_exponencial,2025,12,92139,3.9
+14,LAMBAYEQUE,estacional_ingenuo,2025,7,78578,12.7
+14,LAMBAYEQUE,estacional_ingenuo,2025,8,80735,12.7
+14,LAMBAYEQUE,estacional_ingenuo,2025,9,75123,12.7
+14,LAMBAYEQUE,estacional_ingenuo,2025,10,80472,12.7
+14,LAMBAYEQUE,estacional_ingenuo,2025,11,81083,12.7
+14,LAMBAYEQUE,estacional_ingenuo,2025,12,83380,12.7
+15,LIMA,estacional_ingenuo,2025,7,2976405,5.7
+15,LIMA,estacional_ingenuo,2025,8,3029610,5.7
+15,LIMA,estacional_ingenuo,2025,9,2734679,5.7
+15,LIMA,estacional_ingenuo,2025,10,2814939,5.7
+15,LIMA,estacional_ingenuo,2025,11,2841132,5.7
+15,LIMA,estacional_ingenuo,2025,12,2982476,5.7
+16,LORETO,estacional_ingenuo,2025,7,36830,6.5
+16,LORETO,estacional_ingenuo,2025,8,36755,6.5
+16,LORETO,estacional_ingenuo,2025,9,29286,6.5
+16,LORETO,estacional_ingenuo,2025,10,33969,6.5
+16,LORETO,estacional_ingenuo,2025,11,33256,6.5
+16,LORETO,estacional_ingenuo,2025,12,33084,6.5
+17,MADRE DE DIOS,suavizado_exponencial,2025,7,51416,10.0
+17,MADRE DE DIOS,suavizado_exponencial,2025,8,51416,10.0
+17,MADRE DE DIOS,suavizado_exponencial,2025,9,51416,10.0
+17,MADRE DE DIOS,suavizado_exponencial,2025,10,51416,10.0
+17,MADRE DE DIOS,suavizado_exponencial,2025,11,51416,10.0
+17,MADRE DE DIOS,suavizado_exponencial,2025,12,51416,10.0
+18,MOQUEGUA,suavizado_exponencial,2025,7,23759,13.8
+18,MOQUEGUA,suavizado_exponencial,2025,8,23759,13.8
+18,MOQUEGUA,suavizado_exponencial,2025,9,23759,13.8
+18,MOQUEGUA,suavizado_exponencial,2025,10,23759,13.8
+18,MOQUEGUA,suavizado_exponencial,2025,11,23759,13.8
+18,MOQUEGUA,suavizado_exponencial,2025,12,23759,13.8
+19,PASCO,estacional_ingenuo,2025,7,47386,10.0
+19,PASCO,estacional_ingenuo,2025,8,48323,10.0
+19,PASCO,estacional_ingenuo,2025,9,37340,10.0
+19,PASCO,estacional_ingenuo,2025,10,43307,10.0
+19,PASCO,estacional_ingenuo,2025,11,32717,10.0
+19,PASCO,estacional_ingenuo,2025,12,27277,10.0
+20,PIURA,estacional_ingenuo,2025,7,108162,18.2
+20,PIURA,estacional_ingenuo,2025,8,117833,18.2
+20,PIURA,estacional_ingenuo,2025,9,86901,18.2
+20,PIURA,estacional_ingenuo,2025,10,100850,18.2
+20,PIURA,estacional_ingenuo,2025,11,112700,18.2
+20,PIURA,estacional_ingenuo,2025,12,112550,18.2
+21,PUNO,estacional_ingenuo,2025,7,105115,7.6
+21,PUNO,estacional_ingenuo,2025,8,111215,7.6
+21,PUNO,estacional_ingenuo,2025,9,97629,7.6
+21,PUNO,estacional_ingenuo,2025,10,102435,7.6
+21,PUNO,estacional_ingenuo,2025,11,96089,7.6
+21,PUNO,estacional_ingenuo,2025,12,86767,7.6
+22,SAN MARTÍN,estacional_ingenuo,2025,7,106590,7.7
+22,SAN MARTÍN,estacional_ingenuo,2025,8,103992,7.7
+22,SAN MARTÍN,estacional_ingenuo,2025,9,89865,7.7
+22,SAN MARTÍN,estacional_ingenuo,2025,10,95820,7.7
+22,SAN MARTÍN,estacional_ingenuo,2025,11,87087,7.7
+22,SAN MARTÍN,estacional_ingenuo,2025,12,85058,7.7
+23,TACNA,estacional_ingenuo,2025,7,46000,11.8
+23,TACNA,estacional_ingenuo,2025,8,38723,11.8
+23,TACNA,estacional_ingenuo,2025,9,37637,11.8
+23,TACNA,estacional_ingenuo,2025,10,32889,11.8
+23,TACNA,estacional_ingenuo,2025,11,33357,11.8
+23,TACNA,estacional_ingenuo,2025,12,37273,11.8
+24,TUMBES,estacional_ingenuo,2025,7,28403,8.7
+24,TUMBES,estacional_ingenuo,2025,8,32819,8.7
+24,TUMBES,estacional_ingenuo,2025,9,26217,8.7
+24,TUMBES,estacional_ingenuo,2025,10,28697,8.7
+24,TUMBES,estacional_ingenuo,2025,11,24894,8.7
+24,TUMBES,estacional_ingenuo,2025,12,28356,8.7
+25,UCAYALI,suavizado_exponencial,2025,7,28478,5.8
+25,UCAYALI,suavizado_exponencial,2025,8,28478,5.8
+25,UCAYALI,suavizado_exponencial,2025,9,28478,5.8
+25,UCAYALI,suavizado_exponencial,2025,10,28478,5.8
+25,UCAYALI,suavizado_exponencial,2025,11,28478,5.8
+25,UCAYALI,suavizado_exponencial,2025,12,28478,5.8

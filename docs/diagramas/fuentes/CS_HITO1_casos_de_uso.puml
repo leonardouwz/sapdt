@@ -1,0 +1,41 @@
+@startuml
+skinparam shadowing false
+skinparam dpi 130
+skinparam defaultFontName Arial
+skinparam usecase {
+  BackgroundColor #EAF2FB
+  BorderColor #2F5D8C
+}
+skinparam rectangle {
+  BorderColor #2F5D8C
+}
+title Diagrama de casos de uso — SAPDT
+left to right direction
+actor "Analista turístico" as A
+actor "Portal de datos abiertos\n(MINCETUR)" as F
+rectangle "SAPDT" {
+  usecase "CU-01 Cargar datos\n(RF-01)" as C1
+  usecase "CU-02 Consolidar y cruzar\npor región y mes (RF-02)" as C2
+  usecase "CU-03 Ver proyección\n(RF-03)" as C3
+  usecase "CU-04 Consultar temporada\nalta/media/baja (RF-04)" as C4
+  usecase "CU-05 Comparar regiones\n(RF-05)" as C5
+  usecase "CU-06 Explorar directorio\nde hospedajes (RF-06)" as C6
+  usecase "CU-07 Ver series históricas\n(RF-07)" as C7
+  usecase "CU-08 Exportar reporte\nCSV / PDF (RF-08)" as C8
+  usecase "Validar y registrar\nfilas rechazadas" as V
+}
+A --> C1
+A --> C2
+A --> C3
+A --> C4
+A --> C5
+A --> C6
+A --> C7
+A --> C8
+F --> C1 : archivos\nCSV
+C1 ..> V : <<include>>
+C2 ..> V : <<include>>
+C8 ..> C3 : <<extend>>
+C8 ..> C4 : <<extend>>
+C8 ..> C5 : <<extend>>
+@enduml

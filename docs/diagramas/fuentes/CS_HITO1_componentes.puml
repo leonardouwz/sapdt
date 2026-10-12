@@ -1,0 +1,55 @@
+@startuml
+skinparam shadowing false
+skinparam dpi 130
+skinparam defaultFontName Arial
+skinparam component {
+  BackgroundColor #EAF2FB
+  BorderColor #2F5D8C
+}
+skinparam package {
+  BorderColor #7A8A99
+}
+title Diagrama de componentes — SAPDT (propuesta en Google Cloud)
+left to right direction
+cloud "Cloud Storage\narchivos originales" as CS
+package "Ingesta / ETL\n(RF-01, RF-02)" as P1 {
+  [Cargador de archivos] as Loader
+  [Normalizador de esquema\npor año] as Norm
+  [Validador y reporte\nde calidad] as Val
+  [Cruce por región\ny mes] as Join
+}
+interface "Almacén de series\n(SeriesRepository)" as SR
+database "Cloud SQL\n(PostgreSQL)" as DB
+package "Análisis\n(RF-03, RF-04)" as P2 {
+  [Servicio de proyección] as FS
+  [Clasificador de temporada] as SC
+}
+interface "Modelo de pronóstico\n(ForecastModel)\npromedio móvil · suavizado exp." as FM
+interface "Formato de reporte\n(ReportFormat)\nCSV · PDF" as RF
+package "Reportes\n(RF-05, RF-06, RF-08)" as P3 {
+  [Servicio de reportes] as RS
+  [Consulta de directorio] as DQ
+}
+package "Presentación\n(RF-07)" as P4 {
+  [API REST] as API
+  [Dashboard web] as Web
+}
+CS --> Loader
+Loader --> Norm
+Norm --> Val
+Val --> Join
+Join --> SR
+SR -- DB
+FS ..> SR
+SC ..> SR
+DQ ..> SR
+FS ..> FM
+RS ..> RF
+RS --> FS
+RS --> SC
+API --> FS
+API --> SC
+API --> RS
+API --> DQ
+Web --> API
+@enduml

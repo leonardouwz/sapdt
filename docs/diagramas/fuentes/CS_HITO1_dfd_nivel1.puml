@@ -1,0 +1,42 @@
+@startuml
+skinparam shadowing false
+skinparam dpi 130
+skinparam defaultFontName Arial
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #2F5D8C
+}
+skinparam usecase {
+  BackgroundColor #EAF2FB
+  BorderColor #2F5D8C
+}
+skinparam database {
+  BackgroundColor #FFF6DD
+  BorderColor #A8842C
+}
+title DFD nivel 1 — Pipeline de ingesta y análisis
+rectangle "Portal de datos abiertos\n(MINCETUR)" as P
+rectangle "Analista turístico" as U
+usecase "1.0\nLeer y decodificar\narchivo" as P1
+usecase "2.0\nNormalizar esquema\npor año" as P2
+usecase "3.0\nValidar y\nregistrar rechazos" as P3
+usecase "4.0\nCruzar por región\n(UBIGEO) y mes" as P4
+usecase "5.0\nCalcular temporada\ny proyección" as P5
+usecase "6.0\nGenerar y exportar\nreportes" as P6
+database "D1 Archivos originales" as D1
+database "D2 Modelo consolidado" as D2
+database "D3 Reporte de calidad" as D3
+P --> P1 : archivos CSV
+P1 --> D1 : copia original
+P1 --> P2 : filas crudas
+P2 --> P3 : filas con nombres\ny tipos canónicos
+P3 --> D3 : filas rechazadas\n+ motivo
+P3 --> P4 : filas válidas
+P4 --> D2 : series por región y mes\n+ oferta por región
+D2 --> P5 : series consolidadas
+P5 --> P6 : temporadas y proyecciones
+D2 --> P6 : series y directorio
+P6 --> U : reportes CSV / PDF
+D3 --> U : reporte de calidad
+U --> P6 : filtros y selección
+@enduml

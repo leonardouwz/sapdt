@@ -1,0 +1,11 @@
+node_modules/
+__pycache__/
+*.pyc
+*-journal
+.env*
+*.local
+.output/
+.wrangler/
+dist/
+.tanstack/
+*.log
