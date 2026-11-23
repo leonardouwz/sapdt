@@ -36,10 +36,18 @@ def demo():
     assert c["filas"][1]["variacion_pct"]["arribos"] == 0.0 and c["filas"][0]["variacion_pct"]["arribos"] > 0
     e = J("/api/establecimientos", q="nandu", page=1, pageSize=12)
     assert e["total"] == 1 and e["items"][0]["categoria"] == "3 Estrellas" and J("/api/establecimientos", categoria="Sin categoría")["total"] == 1
+    e = J("/api/establecimientos", departamento="04")
+    assert e["provincias"] == ["AREQUIPA"] and J("/api/establecimientos", departamento="04", provincia="AREQUIPA")["total"] == 2
+    assert J("/api/establecimientos", departamento="04", provincia="CAYLLOMA")["total"] == 0 and J("/api/establecimientos")["provincias"] == []
+    datos = responder(db, "/api/export/proyecciones", {"formato": "csv", "region": "04", "horizonte": "3", "modelo": "suavizado_exp"})[1][0].decode("utf-8-sig").splitlines()
+    assert datos[0].startswith("periodo,tipo,arribos") and [l.split(",")[1] for l in datos[-3:]] == ["proyeccion"] * 3 and datos[-1].startswith("2025-09")
+    pdf = responder(db, "/api/export/proyecciones", {"formato": "pdf", "region": "04"})[1][0]
+    assert pdf.startswith(b"%PDF-1.4") and b"(proyeccion)" in pdf
     datos, nombre = responder(db, "/api/export/directorio", {"formato": "csv"})[1]
     assert datos.decode("utf-8-sig").splitlines()[0].startswith("ruc,") and nombre.endswith(".csv")
     pdf, nombre = responder(db, "/api/export/directorio", {"formato": "pdf"})[1]
     assert pdf.startswith(b"%PDF-1.4") and pdf.rstrip().endswith(b"%%EOF") and nombre.endswith(".pdf")
+    assert b"(nombre comercial)" in pdf and b"(telefono)" not in pdf  # PDF del directorio: solo columnas legibles
     for ruta, q, estado in (("/api/series", {"region": "04", "desde": "2010-01", "hasta": "2024-01"}, 400), ("/api/regiones/99", {}, 404),
                             ("/api/comparativo", {"regiones": "04", "base_desde": "2023-01", "base_hasta": "2023-02", "comp_desde": "2024-01", "comp_hasta": "2024-02"}, 400),
                             ("/api/export/dashboard", {"formato": "docx"}, 400)):

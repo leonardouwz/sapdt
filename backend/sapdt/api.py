@@ -250,7 +250,9 @@ def capacidad(items):
 def establecimientos(db, q):
     todo = filtrar_directorio(db, q)
     page, size = max(int(q.get("page", 1)), 1), min(max(int(q.get("pageSize", 12)), 1), 100)
-    return {"items": todo[(page - 1) * size: page * size], "total": len(todo), "page": page, "pageSize": size, "agregados": capacidad(todo)}
+    # provincias del departamento elegido, para el filtro por provincia (RF-06 CA-1)
+    provs = sorted({e["provincia"] for e in filtrar_directorio(db, {k: v for k, v in q.items() if k not in ("provincia", "q")}) if e["provincia"]}) if q.get("departamento") else []
+    return {"items": todo[(page - 1) * size: page * size], "total": len(todo), "page": page, "pageSize": size, "agregados": capacidad(todo), "provincias": provs}
 
 
 def exportar(db, reporte, q):
@@ -260,7 +262,14 @@ def exportar(db, reporte, q):
         raise Error(400, "Formato no soportado; usa csv o pdf.")
     if reporte == "directorio":
         enc = ["ruc", "nombre_comercial", "razon_social", "clase", "categoria", "departamento_codigo", "departamento", "provincia", "distrito", "direccion", "habitaciones", "camas", "telefono", "email", "nro_certificado", "fecha_corte"]
+        if formato == "pdf":  # en PDF solo las columnas que caben legibles; el CSV trae todas
+            enc = ["nombre_comercial", "ruc", "clase", "categoria", "provincia", "distrito", "habitaciones", "camas"]
         filas = [[e[k] for k in enc] for e in filtrar_directorio(db, q)]
+    elif reporte == "proyecciones":
+        r = proyeccion(db, q)
+        enc = ["periodo", "tipo", "arribos", "region", "modelo", "mae", "mape_pct", "confiable"]
+        filas = [[x["periodo"], "historico", x["valor"], r["region"]["nombre"], r["modelo"], None, None, None] for x in r["historico"]]
+        filas += [[x["periodo"], "proyeccion", x["valor"], r["region"]["nombre"], r["modelo"], r["mae"], r["mape"], r["confiable"]] for x in r["proyeccion"]]
     elif reporte == "comparador":
         r = comparativo(db, {**q, "regiones": q.get("regiones", "")})
         enc = ["region_codigo", "region", "arribos_base", "arribos_comparacion", "variacion_total_pct", "variacion_nacional_pct", "variacion_extranjera_pct"]
