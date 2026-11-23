@@ -32,7 +32,7 @@ Regional tourism planning in Peru often relies on intuition because open data is
 \end{abstract}
 
 \begin{IEEEkeywords}
-calidad de software, calidad de datos, datos abiertos, ISO/IEC 25010, demanda turística, proyección, Cloud Run, Scrum.
+calidad de software, calidad de datos, pruebas de software, datos abiertos, ISO/IEC 25010, demanda turística, proyección, Cloud Run, Scrum.
 \end{IEEEkeywords}
 
 \section{Introducción}
@@ -45,7 +45,7 @@ El resto del artículo se organiza así: la Sección~\ref{sec:relacionados} revi
 \section{Trabajos relacionados}\label{sec:relacionados}
 La predicción de la demanda turística es un campo con amplia literatura. Song y Li \cite{song2008} revisan más de cien estudios y concluyen que ningún modelo supera a los demás en todos los contextos, y que los métodos simples de series de tiempo suelen ser competitivos frente a modelos más complejos. Hyndman y Athanasopoulos \cite{hyndman2021} recomiendan comparar todo modelo contra referencias simples, como el método estacional ingenuo, y Gardner \cite{gardner1985} sistematiza el suavizado exponencial, uno de los dos modelos que ofrece SAPDT. Para medir el error se usan MAE y MAPE, cuyas ventajas y límites discuten Hyndman y Koehler \cite{hyndman2006}.
 
-En calidad de datos, Wang y Strong \cite{wang1996} muestran que la calidad depende del uso que el consumidor hace del dato e incluye dimensiones como exactitud, completitud y consistencia. La norma ISO/IEC 25012 \cite{iso25012} formaliza estas dimensiones, y la ISO/IEC 25010 \cite{iso25010} define el modelo de calidad del producto de software que el curso adopta para los requisitos no funcionales. SAPDT combina ambas líneas: modelos de proyección simples y evaluados, sobre datos cuya calidad se controla y se informa.
+En calidad de datos, Wang y Strong \cite{wang1996} muestran que la calidad depende del uso que el consumidor hace del dato e incluye dimensiones como exactitud, completitud y consistencia. La norma ISO/IEC 25012 \cite{iso25012} formaliza estas dimensiones, y la ISO/IEC 25010 \cite{iso25010} define el modelo de calidad del producto de software que el curso adopta para los requisitos no funcionales. En el plano normativo, la familia ISO/IEC 25000 (SQuaRE) reemplazó a la ISO/IEC 9126 y a la ISO/IEC 14598 como marco para especificar y evaluar la calidad del producto; la ISO/IEC/IEEE 12207 \cite{iso12207} define los procesos del ciclo de vida del software; IEEE 730 \cite{ieee730} establece el plan de aseguramiento de la calidad (SQA), e IEEE 829 \cite{ieee829} la documentación de pruebas. En pruebas, el programa ISTQB \cite{istqb2023} organiza los niveles (componente, integración, sistema y aceptación) y las técnicas de diseño de casos de caja negra, caja blanca y estáticas. SAPDT combina ambas líneas: modelos de proyección simples y evaluados, sobre datos cuya calidad se controla y se informa.
 
 \section{Metodología}\label{sec:metodologia}
 \subsection{Modelo de proceso}
@@ -69,6 +69,11 @@ El cronograma se planificó en 11 semanas desde el 1 de septiembre de 2026 con u
 
 \subsection{Gestión de la calidad}
 Los requisitos se especificaron siguiendo las recomendaciones de IEEE 830 \cite{ieee830}, cada uno con criterios de aceptación verificables, y los no funcionales se derivaron de las características de ISO/IEC 25010 \cite{iso25010}. Se mantuvo una matriz de trazabilidad requisito, caso de uso, componente y prueba. La configuración se gestionó con Git y GitHub, y los diagramas (casos de uso, componentes y flujo de datos) se elaboraron con la herramienta CASE PlantUML, con sus fuentes en el repositorio.
+
+\subsection{Verificación, validación y estrategia de pruebas}
+Siguiendo a Pressman y Maxim \cite{pressman2020}, se distinguió la verificación (``¿construimos el producto correctamente?'') de la validación (``¿construimos el producto correcto?''). La verificación se hizo con pruebas automáticas contra los criterios de aceptación de cada requisito; la validación, contrastando los totales nacionales calculados por el sistema con cifras de referencia y revisando las cinco pantallas con los datos reales. El aseguramiento de la calidad (SQA) se aplicó sobre el proceso, con criterios de aceptación, trazabilidad y reportes de calidad de cada carga; el control de calidad (SQC), sobre los productos, mediante las pruebas.
+
+La estrategia sigue la pirámide de pruebas \cite{istqb2023}: muchas pruebas de componente, rápidas y sin base de datos real (RNF-03), pocas de integración a través de la API y una verificación de sistema sobre el despliegue. Los casos se diseñaron con técnicas de caja negra: partición de equivalencia (por ejemplo, archivo con esquema conocido frente a esquema desconocido, o valor numérico con coma frente a valor no numérico), análisis de valores límite (región con historia por debajo de 24 meses, rangos de fechas fuera de los datos o invertidos, variación porcentual con base cero) y pruebas negativas sobre la API, que deben responder con el código HTTP de error correspondiente. Toda la batería se vuelve a ejecutar después de cada cambio como prueba de regresión.
 
 \subsection{Datos}
 Se usaron dos conjuntos del MINCETUR \cite{pnda}: los indicadores de ocupabilidad 2015--2025 (11 archivos, 61\,890 filas, 25 departamentos por 126 meses) y el directorio de hospedajes calificados (5\,091 filas, corte del 5 de octubre de 2026). El perfilado inicial encontró dos esquemas de ocupabilidad (23 columnas hasta 2023 y 24 desde 2024), decimales con coma hasta 2024 y con punto en 2025, codificación Windows-1252, filas consolidadas mezcladas con filas por clase de hospedaje (sumar todas las filas cuadruplica el total) y 15 filas del directorio con un campo de más.
@@ -168,7 +173,25 @@ El comparativo entre regiones muestra, por ejemplo, que entre 2023 y 2024 los ar
 \end{figure}
 
 \subsection{Pruebas y verificación de los requisitos no funcionales}
-Las pruebas automáticas cubren la ingesta y la reparación, el cruce, el análisis y la API (cuatro módulos en Python, ejecutados con \texttt{python -m tests.<módulo>}) y 13 pruebas de la interfaz con Vitest. Todas pasan sobre la versión entregada. La Tabla~\ref{tab:evidencia} resume la evidencia de cada requisito no funcional.
+La Tabla~\ref{tab:pruebas} relaciona cada nivel de prueba con su técnica y su evidencia en el repositorio. Las pruebas de Python se ejecutan sin framework con \texttt{python -m tests.<módulo>} y las de la interfaz con Vitest; todas pasan sobre la versión entregada. La Tabla~\ref{tab:evidencia} resume la evidencia de cada requisito no funcional.
+
+\begin{table}[t]
+\caption{Niveles y técnicas de prueba aplicados}\label{tab:pruebas}
+\centering
+\begin{tabular}{@{}p{1.6cm}p{2.4cm}p{3.6cm}@{}}
+\toprule
+Nivel & Técnica & Evidencia \\
+\midrule
+Componente & Partición de equivalencia & Ingesta: fila válida con coma decimal se carga, fila no numérica se rechaza; archivo de esquema desconocido se rechaza completo \\
+Componente & Valores límite & Región con menos de 24 meses marcada ``no confiable''; reparación solo si quedan 28 campos verificables \\
+Componente & Casos de uso / reglas & Cruce: solo filas consolidadas; huérfanos listados en ambos sentidos \\
+Integración & Caja negra y pruebas negativas & API: rangos fuera de datos (400), región inexistente (404), formato no soportado (400); CSV y PDF válidos \\
+Componente (web) & Valores límite y oráculo externo & 13 pruebas Vitest: percentiles, variación con base cero, totales nacionales 2019 y 2024 \\
+Sistema & Verificación manual & Cinco pantallas con datos reales en Cloud Run \\
+Regresión & Re-ejecución & Toda la batería tras cada cambio \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{table}[t]
 \caption{Evidencia de los requisitos no funcionales}\label{tab:evidencia}
@@ -187,12 +210,12 @@ RNF-06 & Despliegue en Cloud Run con variables de entorno & Cumple \\
 \end{tabular}
 \end{table}
 
-[POR COMPLETAR: si el equipo mide el tiempo de respuesta en Cloud Run o realiza pruebas con usuarios, agregar aquí los resultados.]
+[POR COMPLETAR: el curso propone métricas como la cobertura de código, la complejidad ciclomática, la eficiencia de detección de defectos (DDE) y la disponibilidad; el proyecto aún no las mide. Si el equipo mide alguna, o el tiempo de respuesta en Cloud Run, o hace pruebas de aceptación con usuarios, agregar aquí los resultados.]
 
 \section{Conclusiones}\label{sec:conclusiones}
 SAPDT cumple los ocho requisitos funcionales sobre datos abiertos reales y está desplegado en Google Cloud Run. El enfoque de calidad del proyecto se reflejó en que la carga no perdió ninguna de las 66\,981 filas en silencio: cada observación y cada reparación quedó registrada y probada. La evaluación de los modelos de proyección mostró errores medios de 10,7\,\% a 12,7\,\%, por lo que el sistema muestra siempre el error junto al pronóstico en lugar de presentarlo como una cifra exacta.
 
-Las principales limitaciones son que los datos llegan solo hasta junio de 2025, que el PDF exportado es una tabla sencilla y que la medición de modificabilidad aún debe repetirse sobre el código final. Como trabajo futuro se propone incorporar modelos estacionales con tendencia, automatizar la descarga periódica desde el portal y, si los datos pasan a actualizarse con frecuencia, migrar la base a un servicio administrado. El código, la documentación y la guía de despliegue están en \url{https://github.com/leonardouwz/sapdt}, y la aplicación en \url{https://sapdt-web-606560700752.us-central1.run.app}.
+Las principales limitaciones son que los datos llegan solo hasta junio de 2025, que el PDF exportado es una tabla sencilla y que la medición de modificabilidad aún debe repetirse sobre el código final. Como trabajo futuro se propone documentar las pruebas según IEEE 829, medir cobertura y complejidad ciclomática, incorporar modelos estacionales con tendencia, automatizar la descarga periódica desde el portal y, si los datos pasan a actualizarse con frecuencia, migrar la base a un servicio administrado. El código, la documentación y la guía de despliegue están en \url{https://github.com/leonardouwz/sapdt}, y la aplicación en \url{https://sapdt-web-606560700752.us-central1.run.app}.
 
 \begin{thebibliography}{99}
 \bibitem{pnda} Plataforma Nacional de Datos Abiertos, ``Indicadores de ocupabilidad de los establecimientos de hospedaje y Directorio de establecimientos de hospedaje calificados,'' MINCETUR, 2025. [En línea]. Disponible: \url{https://www.datosabiertos.gob.pe}
@@ -204,9 +227,14 @@ Las principales limitaciones son que los datos llegan solo hasta junio de 2025, 
 \bibitem{wang1996} R. Y. Wang y D. M. Strong, ``Beyond accuracy: What data quality means to data consumers,'' \emph{Journal of Management Information Systems}, vol. 12, no. 4, pp. 5--33, 1996.
 \bibitem{iso25012} ISO/IEC, \emph{Software engineering---Software product Quality Requirements and Evaluation (SQuaRE)---Data quality model}, ISO/IEC 25012:2008, 2008.
 \bibitem{iso25010} ISO/IEC, \emph{Systems and software engineering---Systems and software Quality Requirements and Evaluation (SQuaRE)---System and software quality models}, ISO/IEC 25010:2011, 2011.
-\bibitem{ieee830} IEEE Computer Society, \emph{IEEE Recommended Practice for Software Requirements Specifications}, IEEE Std 830-1998, 1998.
+\bibitem{iso12207} ISO/IEC/IEEE, \emph{Systems and software engineering---Software life cycle processes}, ISO/IEC/IEEE 12207:2017, 2017.
+\bibitem{ieee730} IEEE, \emph{IEEE Standard for Software Quality Assurance Plans}, IEEE Std 730-2002, 2002.
+\bibitem{ieee829} IEEE, \emph{IEEE Standard for Software and System Test Documentation}, IEEE Std 829-2008, 2008.
+\bibitem{istqb2023} International Software Testing Qualifications Board, \emph{Certified Tester Foundation Level Syllabus}, v4.0, 2023. [En línea]. Disponible: \url{https://www.istqb.org}
 \bibitem{scrum2020} K. Schwaber y J. Sutherland, \emph{The Scrum Guide}, 2020. [En línea]. Disponible: \url{https://scrumguides.org}
-\bibitem{sommerville2011} I. Sommerville, \emph{Software Engineering}, 9th ed. Boston, MA, USA: Addison-Wesley, 2011.
+\bibitem{sommerville2011} I. Sommerville, \emph{Software Engineering}, 10th ed. Boston, MA, USA: Pearson, 2016.
+\bibitem{ieee830} IEEE Computer Society, \emph{IEEE Recommended Practice for Software Requirements Specifications}, IEEE Std 830-1998, 1998.
+\bibitem{pressman2020} R. S. Pressman y B. R. Maxim, \emph{Ingeniería del software: un enfoque práctico}, 9.ª ed. México: McGraw-Hill, 2020.
 \bibitem{cloudrun} Google Cloud, ``Cloud Run documentation.'' [En línea]. Disponible: \url{https://cloud.google.com/run/docs}
 \end{thebibliography}
 
