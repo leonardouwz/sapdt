@@ -24,8 +24,8 @@ Para gobiernos regionales, cámaras de turismo, hoteleros y emprendedores que ne
 | 📈 **Tendencias y temporadas** | Evolución mensual de arribos o pernoctaciones en el rango que elijas, y un semáforo que clasifica cada mes del año en temporada **alta, media o baja** (percentiles 75 y 25). |
 | 🔮 **Simulador de proyecciones** | Pronostica los arribos a 3 o 6 meses con promedio móvil o suavizado exponencial, e indica qué tan confiable es la estimación (error medio comprobado con los últimos 12 meses reales). |
 | ⚖️ **Comparador interregional** | Compara de 2 a 5 regiones entre dos periodos: arribos y variación porcentual total, nacional y extranjera. |
-| 🏨 **Explorador del directorio** | Busca hospedajes formales por región, clase (hotel, hostal, albergue…) y categoría (1 a 5 estrellas), con totales de habitaciones y camas. |
-| 📄 **Exportación** | Cada reporte se descarga en **CSV** (abre bien en Excel) o **PDF**. |
+| 🏨 **Explorador del directorio** | Busca hospedajes formales por región, provincia, clase (hotel, hostal, albergue…) y categoría (1 a 5 estrellas), con totales de habitaciones y camas. |
+| 📄 **Exportación** | Cada reporte (dashboard, tendencias, proyecciones, comparador y directorio) se descarga en **CSV** (abre bien en Excel) o **PDF**. |
 
 <table>
 <tr>
@@ -93,6 +93,7 @@ cd ..\frontend
 npm install --legacy-peer-deps
 npx vitest run
 ```
+En GitHub se ejecutan solas en cada push y pull request (pestaña **Actions**, flujo `Pruebas`).
 
 ## Probar en local (Windows)
 Requiere Python 3 y Node.js. Doble clic en `iniciar.bat`: abre la API (puerto 8000) y la interfaz (http://127.0.0.1:5199).
@@ -104,6 +105,18 @@ python -m sapdt.cargar datos_crudos bd\sapdt.db
 python -m sapdt.cruce bd\sapdt.db
 ```
 
+## Documentación técnica
+| Documento | Contenido |
+|---|---|
+| [Catálogo de requisitos](docs/01_catalogo_requisitos_final.md) | 8 RF (3 alta, 3 media, 2 baja), criterios de aceptación y RNF |
+| [Matriz de trazabilidad](docs/07_matriz_trazabilidad.md) | Requisito → código → prueba, con el último resultado de las pruebas |
+| [Gestión de configuración](docs/08_gestion_configuracion.md) | Ramas, commits, pull requests, versiones y releases |
+| [Arquitectura en la nube](docs/09_arquitectura_nube.md) | Diagrama en Google Cloud Run y decisiones de diseño |
+| [Modelo de proceso](docs/10_modelo_proceso.md) | Incremental con Scrum adaptado: sprints, roles y artefactos |
+| [Aseguramiento de la calidad](docs/11_aseguramiento_calidad.md) | Métricas ISO/IEC 25010, calidad de datos y estrategia de pruebas |
+| [Cronograma y roles](docs/03_cronograma_roles_proceso.md) | Gantt, responsables y riesgos |
+| [Despliegue](DEPLOY.md) | Pasos para publicar en Cloud Run |
+
 ## Estructura del repositorio
 | Carpeta | Contenido |
 |---|---|
@@ -111,7 +124,7 @@ python -m sapdt.cruce bd\sapdt.db
 | `backend/bd/sapdt.db` | Base de datos ya cargada con los datos reales. |
 | `backend/datos_crudos/` | Archivos CSV originales descargados del portal. |
 | `frontend/` | Interfaz web. |
-| `docs/` | Documentos del Hito 1: requisitos, perfilado de datos, cronograma y diagramas. |
+| `docs/` | Documentación técnica: requisitos, trazabilidad, configuración, arquitectura, proceso, calidad y diagramas. |
 
 ## Equipo
 Curso de **Calidad de Software** — Universidad La Salle, Arequipa (2026).

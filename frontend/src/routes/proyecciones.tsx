@@ -5,7 +5,7 @@ import { RegionSelect, Segmented } from "@/components/common/selectors";
 import { Val } from "@/components/common/states";
 import { ForecastChart } from "@/components/charts/charts";
 import { ConfidenceGauge } from "@/components/forecast/ConfidenceGauge";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { ExportMenu, PageHeader } from "@/components/layout/PageHeader";
 import { fmtInt, fmtMonth } from "@/domain/format";
 import type { ForecastModel } from "@/domain/models/proyeccion";
 import { regionName } from "@/domain/regions";
@@ -24,7 +24,8 @@ function Proyecciones() {
   return (
     <>
       <PageHeader eyebrow="Simulador de Proyecciones" title={`Proyección de arribos — ${regionName(region)}`}
-        description="Estimación a 3 o 6 meses a partir de 2022, sin los meses de pandemia. La confianza sale de probar el método con los últimos 12 meses." />
+        description="Estimación a 3 o 6 meses a partir de 2022, sin los meses de pandemia. La confianza sale de probar el método con los últimos 12 meses."
+        actions={<ExportMenu reporte="proyecciones" filtros={{ region, horizonte, modelo }} />} />
       <div className="mb-6 flex flex-wrap items-end gap-4">
         <RegionSelect value={region} onChange={(c) => c && setRegion(c)} />
         <Segmented label="Horizonte" value={String(horizonte) as "3" | "6"} onChange={(v) => setH(Number(v) as 3 | 6)} options={[{ value: "3", label: "3 meses" }, { value: "6", label: "6 meses" }]} />

@@ -23,7 +23,7 @@ export interface ForecastApi { get(p: ForecastParams): Promise<ForecastResult> }
 export interface CompareApi { get(p: CompareParams): Promise<CompareResult> } // GET /api/comparativo
 export interface DirectoryApi { search(p: DirectoryQuery): Promise<DirectoryResult> } // GET /api/establecimientos
 
-export type ReportKind = "dashboard" | "tendencias" | "comparador" | "directorio";
+export type ReportKind = "dashboard" | "tendencias" | "comparador" | "directorio" | "proyecciones";
 export interface ExportParams { reporte: ReportKind; formato: "csv" | "pdf"; filtros: Record<string, unknown> }
 export interface ExportApi { download(p: ExportParams): Promise<{ blob: Blob; filename: string }> } // GET /api/export/{reporte}
 

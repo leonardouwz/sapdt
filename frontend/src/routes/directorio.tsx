@@ -16,18 +16,22 @@ export const Route = createFileRoute("/directorio")({ component: Directorio });
 const sel = "h-10 rounded-md border bg-card px-3 text-sm";
 
 function Directorio() {
-  const [f, setF] = useState<{ departamento?: string; clase?: ClaseDir; categoria?: CategoriaDir; q: string; page: number }>({ q: "", page: 1 });
+  const [f, setF] = useState<{ departamento?: string; provincia?: string; clase?: ClaseDir; categoria?: CategoriaDir; q: string; page: number }>({ q: "", page: 1 });
   const set = (c: Partial<typeof f>) => setF((s) => ({ ...s, page: 1, ...c }));
-  const query = { departamento: f.departamento, clase: f.clase, categoria: f.categoria, q: f.q || undefined, page: f.page, pageSize: PAGE_SIZE };
+  const query = { departamento: f.departamento, provincia: f.provincia, clase: f.clase, categoria: f.categoria, q: f.q || undefined, page: f.page, pageSize: PAGE_SIZE };
   const d = useDirectory(query);
   const a = d.data?.agregados;
   return (
     <>
       <PageHeader eyebrow="Explorador del Directorio" title="Oferta formal de hospedaje"
         description="Establecimientos con clasificación vigente según el padrón del MINCETUR. Es una foto a la fecha de corte, no una serie en el tiempo."
-        actions={<ExportMenu reporte="directorio" filtros={{ departamento: f.departamento, clase: f.clase, categoria: f.categoria, q: f.q || undefined }} />} />
+        actions={<ExportMenu reporte="directorio" filtros={{ departamento: f.departamento, provincia: f.provincia, clase: f.clase, categoria: f.categoria, q: f.q || undefined }} />} />
       <div className="mb-6 flex flex-wrap items-end gap-3">
-        <RegionSelect allowAll value={f.departamento ?? ""} onChange={(c) => set({ departamento: c || undefined })} />
+        <RegionSelect allowAll value={f.departamento ?? ""} onChange={(c) => set({ departamento: c || undefined, provincia: undefined })} />
+        {f.departamento && (
+          <select aria-label="Provincia" className={sel} value={f.provincia ?? ""} onChange={(e) => set({ provincia: e.target.value || undefined })}>
+            <option value="">Todas las provincias</option>{d.data?.provincias?.map((p) => <option key={p}>{p}</option>)}</select>
+        )}
         <select aria-label="Clase" className={sel} value={f.clase ?? ""} onChange={(e) => set({ clase: (e.target.value || undefined) as ClaseDir | undefined })}>
           <option value="">Todas las clases</option>{CLASES.map((c) => <option key={c}>{c}</option>)}</select>
         <select aria-label="Categoría" className={sel} value={f.categoria ?? ""} onChange={(e) => set({ categoria: (e.target.value || undefined) as CategoriaDir | undefined })}>

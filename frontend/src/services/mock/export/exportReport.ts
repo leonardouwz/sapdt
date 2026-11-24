@@ -112,10 +112,29 @@ export async function exportReport(p: ExportParams): Promise<{ blob: Blob; filen
         ],
       });
     }
+  } else if (p.reporte === "proyecciones") {
+    const region = str(f.region, "04");
+    slug = regionSlug(region);
+    const r = q.getForecast({ region, horizonte: f.horizonte === 3 || f.horizonte === "3" ? 3 : 6, modelo: f.modelo === "suavizado_exp" ? "suavizado_exp" : "media_movil" });
+    if (p.formato === "csv") {
+      blob = toCsv(["periodo", "tipo", "arribos", "region", "modelo", "mae", "mape_pct", "confiable"], [
+        ...r.historico.map((x) => [x.periodo, "historico", x.valor, r.region.nombre, r.modelo, null, null, null]),
+        ...r.proyeccion.map((x) => [x.periodo, "proyeccion", x.valor, r.region.nombre, r.modelo, r.mae, r.mape, r.confiable]),
+      ]);
+    } else {
+      blob = await buildPdf({
+        title: "Simulador de Proyecciones", coverage,
+        filtros: `Región: ${r.region.nombre} · Método: ${r.modelo === "media_movil" ? "Promedio móvil" : "Suavizado exponencial"} · Horizonte: ${r.horizonte} meses`,
+        sections: [
+          { heading: "Arribos proyectados", table: { head: ["Mes", "Arribos"], body: r.proyeccion.map((x) => [fmtMonth(x.periodo), fmtInt(x.valor)]) } },
+          { lines: [`Error absoluto medio: ${fmtNoData(r.mae, fmtInt)} · Error porcentual medio: ${fmtNoData(r.mape, (n) => `${n.toFixed(1)} %`)}${r.confiable ? "" : " · No confiable (menos de 24 meses de historia)"}`] },
+        ],
+      });
+    }
   } else {
     const dep = str(f.departamento) || undefined;
     if (dep) slug = regionSlug(dep);
-    const list = q.filterDirectory({ departamento: dep, clase: (str(f.clase) || undefined) as ClaseDir | undefined, categoria: (str(f.categoria) || undefined) as CategoriaDir | undefined, q: str(f.q) || undefined });
+    const list = q.filterDirectory({ departamento: dep, provincia: str(f.provincia) || undefined, clase: (str(f.clase) || undefined) as ClaseDir | undefined, categoria: (str(f.categoria) || undefined) as CategoriaDir | undefined, q: str(f.q) || undefined });
     if (p.formato === "csv") {
       blob = toCsv(["ruc", "nombre_comercial", "razon_social", "clase", "categoria", "departamento_codigo", "departamento", "provincia", "distrito", "direccion", "habitaciones", "camas", "telefono", "email", "nro_certificado", "fecha_corte"],
         list.map((e) => [e.ruc, toTitleCase(e.nombre_comercial), toTitleCase(e.razon_social), e.clase, e.categoria, e.departamento_codigo, e.departamento, toTitleCase(e.provincia), toTitleCase(e.distrito), e.direccion ? toTitleCase(e.direccion) : null, e.habitaciones, e.camas, e.telefono, e.email, e.nro_certificado, e.fecha_corte]));
