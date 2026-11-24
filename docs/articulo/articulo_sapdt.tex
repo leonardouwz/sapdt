@@ -32,7 +32,7 @@ Regional tourism planning in Peru often relies on intuition because open data is
 \end{abstract}
 
 \begin{IEEEkeywords}
-calidad de software, calidad de datos, pruebas de software, datos abiertos, ISO/IEC 25010, demanda turística, proyección, Cloud Run, Scrum.
+calidad de software, calidad de datos, pruebas de software, ISO/IEC 42001, datos abiertos, ISO/IEC 25010, demanda turística, proyección, Cloud Run, Scrum.
 \end{IEEEkeywords}
 
 \section{Introducción}
@@ -40,12 +40,12 @@ El turismo es una actividad clave para regiones como Arequipa y Cusco, y decisio
 
 El objetivo del trabajo fue desarrollar un producto de software que responda tres preguntas de planificación (cuántos turistas llegarán, cuándo es temporada alta y cuánta oferta de hospedaje existe) conservando durante todo el desarrollo un proceso de calidad de software. La contribución principal es tratar la calidad de los datos como un requisito verificable: cada fila rechazada, observada o reparada queda registrada con su motivo y cada regla de dominio tiene una prueba automática.
 
-El resto del artículo se organiza así: la Sección~\ref{sec:relacionados} revisa trabajos relacionados; la Sección~\ref{sec:metodologia} describe el proceso y los estándares; la Sección~\ref{sec:requisitos} presenta los requisitos; la Sección~\ref{sec:arquitectura}, la arquitectura en la nube; la Sección~\ref{sec:resultados}, los resultados y pruebas; y la Sección~\ref{sec:conclusiones}, las conclusiones.
+El resto del artículo se organiza así: la Sección~\ref{sec:relacionados} revisa trabajos relacionados; la Sección~\ref{sec:metodologia} describe el proceso y los estándares; la Sección~\ref{sec:requisitos} presenta los requisitos; la Sección~\ref{sec:arquitectura}, la arquitectura en la nube; la Sección~\ref{sec:resultados}, los resultados y pruebas; la Sección~\ref{sec:42001}, la relación con la ISO/IEC 42001; y la Sección~\ref{sec:conclusiones}, las conclusiones.
 
 \section{Trabajos relacionados}\label{sec:relacionados}
 La predicción de la demanda turística es un campo con amplia literatura. Song y Li \cite{song2008} revisan más de cien estudios y concluyen que ningún modelo supera a los demás en todos los contextos, y que los métodos simples de series de tiempo suelen ser competitivos frente a modelos más complejos. Hyndman y Athanasopoulos \cite{hyndman2021} recomiendan comparar todo modelo contra referencias simples, como el método estacional ingenuo, y Gardner \cite{gardner1985} sistematiza el suavizado exponencial, uno de los dos modelos que ofrece SAPDT. Para medir el error se usan MAE y MAPE, cuyas ventajas y límites discuten Hyndman y Koehler \cite{hyndman2006}.
 
-En calidad de datos, Wang y Strong \cite{wang1996} muestran que la calidad depende del uso que el consumidor hace del dato e incluye dimensiones como exactitud, completitud y consistencia. La norma ISO/IEC 25012 \cite{iso25012} formaliza estas dimensiones, y la ISO/IEC 25010 \cite{iso25010} define el modelo de calidad del producto de software que el curso adopta para los requisitos no funcionales. En el plano normativo, la familia ISO/IEC 25000 (SQuaRE) reemplazó a la ISO/IEC 9126 y a la ISO/IEC 14598 como marco para especificar y evaluar la calidad del producto; la ISO/IEC/IEEE 12207 \cite{iso12207} define los procesos del ciclo de vida del software; IEEE 730 \cite{ieee730} establece el plan de aseguramiento de la calidad (SQA), e IEEE 829 \cite{ieee829} la documentación de pruebas. En pruebas, el programa ISTQB \cite{istqb2023} organiza los niveles (componente, integración, sistema y aceptación) y las técnicas de diseño de casos de caja negra, caja blanca y estáticas. SAPDT combina ambas líneas: modelos de proyección simples y evaluados, sobre datos cuya calidad se controla y se informa.
+En calidad de datos, Wang y Strong \cite{wang1996} muestran que la calidad depende del uso que el consumidor hace del dato e incluye dimensiones como exactitud, completitud y consistencia. La norma ISO/IEC 25012 \cite{iso25012} formaliza estas dimensiones, y la ISO/IEC 25010 \cite{iso25010} define el modelo de calidad del producto de software que el curso adopta para los requisitos no funcionales. En el plano normativo, la familia ISO/IEC 25000 (SQuaRE) reemplazó a la ISO/IEC 9126 y a la ISO/IEC 14598 como marco para especificar y evaluar la calidad del producto; la ISO/IEC/IEEE 12207 \cite{iso12207} define los procesos del ciclo de vida del software; IEEE 730 \cite{ieee730} establece el plan de aseguramiento de la calidad (SQA), e IEEE 829 \cite{ieee829} la documentación de pruebas. En pruebas, el programa ISTQB \cite{istqb2023} organiza los niveles (componente, integración, sistema y aceptación) y las técnicas de diseño de casos de caja negra, caja blanca y estáticas. Para sistemas que usan inteligencia artificial, la ISO/IEC 42001:2023 \cite{iso42001} es la primera norma de sistema de gestión de IA. Especifica requisitos para establecer, implementar, mantener y mejorar continuamente ese sistema de gestión en cualquier organización que provea o use productos basados en IA. Sigue la estructura armonizada de las normas de gestión (cláusulas 4 a 10: contexto, liderazgo, planificación, apoyo, operación, evaluación del desempeño y mejora) e incluye la evaluación de riesgos y de impacto de los sistemas de IA. Su Anexo A propone controles sobre, entre otros temas, la evaluación de impactos (A.5), el ciclo de vida del sistema de IA (A.6) y los datos para sistemas de IA (A.7), con controles de calidad, procedencia y preparación de los datos \cite{iso42001,modulos42001}. SAPDT combina ambas líneas: modelos de proyección simples y evaluados, sobre datos cuya calidad se controla y se informa.
 
 \section{Metodología}\label{sec:metodologia}
 \subsection{Modelo de proceso}
@@ -201,20 +201,27 @@ Regresión & Re-ejecución & Toda la batería tras cada cambio \\
 ID & Evidencia & Estado \\
 \midrule
 RNF-01 & 243 filas observadas (15 reparadas), todas en el reporte & Cumple \\
-RNF-02 & Práctica 2: de 3 clases modificadas a 0. [POR COMPLETAR: repetir sobre el código final] & Parcial \\
+RNF-02 & Código final: modelo nuevo en reportes, 0 clases; en la API, 2 funciones y la interfaz; formato nuevo, 1 función & Parcial \\
 RNF-03 & Pruebas con bases pequeñas de ejemplo & Cumple \\
 RNF-04 & Carga todo o nada; recargar no duplica & Cumple \\
-RNF-05 & Consulta de serie en menos de 0,2\,s (local) & Cumple \\
+RNF-05 & Serie completa en Cloud Run: mediana 0,44\,s, máximo 0,48\,s & Cumple \\
 RNF-06 & Despliegue en Cloud Run con variables de entorno & Cumple \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Métricas de calidad del código}
-Se midieron dos métricas propuestas en el curso sobre el paquete \texttt{sapdt} del backend (Tabla~\ref{tab:metricas}): la cobertura de sentencias y de ramas con \texttt{coverage.py} al ejecutar las cuatro baterías de pruebas, y la complejidad ciclomática de McCabe \cite{mccabe1976} con \texttt{radon}. Se excluyeron de la cobertura los dos scripts de línea de comandos (\texttt{cargar.py} y \texttt{reportes.py}), que se ejecutan a mano y no tienen pruebas. Las funciones de mayor complejidad son la carga de un archivo (\texttt{IngestService.cargar}, 30) y la generación del reporte de calidad (21); son las candidatas a dividir en una siguiente iteración.
+Se midieron dos métricas propuestas en el curso (Tabla~\ref{tab:metricas}). En el paquete \texttt{sapdt} del backend se midieron la cobertura de sentencias y de ramas con \texttt{coverage.py} al ejecutar las cuatro baterías de pruebas, y la complejidad ciclomática de McCabe \cite{mccabe1976} con \texttt{radon}. Se excluyeron de la cobertura los dos scripts de línea de comandos (\texttt{cargar.py} y \texttt{reportes.py}), que se ejecutan a mano y no tienen pruebas. Las funciones de mayor complejidad son la carga de un archivo (\texttt{IngestService.cargar}, 30) y la generación del reporte de calidad (21); son las candidatas a dividir en una siguiente iteración. En la interfaz web, la cobertura de Vitest es baja (27,2\,\% de sentencias) porque las 13 pruebas se concentran en el módulo de dominio (52,0\,\%) y no cubren los componentes visuales.
+
+\subsection{Modificabilidad y eficiencia en la nube}
+Para RNF-02 se repitió sobre el código final la prueba hecha en la Práctica 2: se agregó un modelo de proyección nuevo (media histórica) en una copia del código. En el módulo de análisis que genera los reportes bastó una clase nueva y su registro en el diccionario de modelos, sin modificar ninguna clase existente, y las pruebas siguieron pasando. En cambio, la API que usa la interfaz implementa sus dos modelos con condicionales, por lo que ofrecer el modelo nuevo en pantalla exige cambiar dos funciones de la API y el selector de la interfaz; agregar un formato de exportación toca una sola función. Por eso RNF-02 se cumple solo en parte, y unificar la API con el registro de modelos queda como mejora.
+
+Para RNF-05 se midió el tiempo de respuesta de la API desplegada desde un navegador en el Perú el 23 de noviembre de 2026, con 15 solicitudes por servicio y la instancia ya activa. La serie regional completa respondió con una mediana de 0,44\,s (máximo 0,48\,s); temporada, proyección, comparativo y directorio, con medianas entre 0,23 y 0,25\,s; y la exportación del directorio a PDF, con 0,83\,s. Todos quedan por debajo del límite de 2\,s. No se midió el arranque en frío de Cloud Run.
+
+[POR COMPLETAR: la eficiencia de detección de defectos (DDE) y las pruebas de aceptación con usuarios aún no se miden; agregarlas aquí si el equipo las obtiene.]
 
 \begin{table}[t]
-\caption{Métricas de calidad del código del backend}\label{tab:metricas}
+\caption{Métricas de calidad del código}\label{tab:metricas}
 \centering
 \begin{tabular}{@{}lr@{}}
 \toprule
@@ -222,6 +229,7 @@ Métrica & Valor \\
 \midrule
 Cobertura de sentencias & 81,6\,\% (529 de 648) \\
 Cobertura de ramas & 69,9\,\% (144 de 206) \\
+Cobertura web, sentencias (todo / dominio) & 27,2\,\% / 52,0\,\% \\
 Funciones y métodos analizados & 69 \\
 Complejidad ciclomática media & 5,8 \\
 Funciones con complejidad $\leq 10$ & 55 (80\,\%) \\
@@ -230,12 +238,14 @@ Complejidad máxima & 30 \\
 \end{tabular}
 \end{table}
 
-[POR COMPLETAR: la cobertura de la interfaz web, la eficiencia de detección de defectos (DDE), el tiempo de respuesta en Cloud Run y las pruebas de aceptación con usuarios aún no se miden; agregarlos aquí si el equipo los obtiene.]
+
+\section{Relación con la ISO/IEC 42001}\label{sec:42001}
+SAPDT no está certificado en la ISO/IEC 42001 ni implementa un sistema de gestión de IA: es un proyecto de curso y sus modelos de proyección son métodos estadísticos simples, no aprendizaje automático. Sin embargo, el enunciado del curso invita a incorporar aprendizaje automático, y si una versión futura lo hiciera, la norma daría un marco para gobernarlo. Varias prácticas del proyecto ya apuntan en la dirección de sus controles. Para los datos (A.7), el origen de cada archivo, su preparación y sus problemas de calidad quedan registrados en el reporte de cada carga. Para el ciclo de vida (A.6), cada modelo se valida con un tramo de 12 meses reservados y su error se publica junto al pronóstico. Para la evaluación de impactos (A.5), la regla de ``no confiable'' con menos de 24 meses y el aviso de periodo atípico limitan el uso indebido de un pronóstico. Lo que faltaría es lo propio de un sistema de gestión: una política de IA, roles y responsabilidades, una evaluación formal de riesgos e impactos, y auditorías y revisiones periódicas.
 
 \section{Conclusiones}\label{sec:conclusiones}
 SAPDT cumple los ocho requisitos funcionales sobre datos abiertos reales y está desplegado en Google Cloud Run. El enfoque de calidad del proyecto se reflejó en que la carga no perdió ninguna de las 66\,981 filas en silencio: cada observación y cada reparación quedó registrada y probada. La evaluación de los modelos de proyección mostró errores medios de 10,7\,\% a 12,7\,\%, por lo que el sistema muestra siempre el error junto al pronóstico en lugar de presentarlo como una cifra exacta.
 
-Las principales limitaciones son que los datos llegan solo hasta junio de 2025, que el PDF exportado es una tabla sencilla y que la medición de modificabilidad aún debe repetirse sobre el código final. Como trabajo futuro se propone documentar las pruebas según IEEE 829, subir la cobertura de ramas y dividir las funciones de complejidad mayor a 10, incorporar modelos estacionales con tendencia, automatizar la descarga periódica desde el portal y, si los datos pasan a actualizarse con frecuencia, migrar la base a un servicio administrado. El código, la documentación y la guía de despliegue están en \url{https://github.com/leonardouwz/sapdt}, y la aplicación en \url{https://sapdt-web-606560700752.us-central1.run.app}.
+Las principales limitaciones son que los datos llegan solo hasta junio de 2025, que el PDF exportado es una tabla sencilla y que la API no aprovecha aún el registro de modelos intercambiables del módulo de análisis. Como trabajo futuro se propone documentar las pruebas según IEEE 829, subir la cobertura de ramas y dividir las funciones de complejidad mayor a 10, incorporar modelos estacionales con tendencia, automatizar la descarga periódica desde el portal y, si los datos pasan a actualizarse con frecuencia, migrar la base a un servicio administrado. El código, la documentación y la guía de despliegue están en \url{https://github.com/leonardouwz/sapdt}, y la aplicación en \url{https://sapdt-web-606560700752.us-central1.run.app}.
 
 \begin{thebibliography}{99}
 \bibitem{pnda} Plataforma Nacional de Datos Abiertos, ``Indicadores de ocupabilidad de los establecimientos de hospedaje y Directorio de establecimientos de hospedaje calificados,'' MINCETUR, 2025. [En línea]. Disponible: \url{https://www.datosabiertos.gob.pe}
@@ -251,6 +261,8 @@ Las principales limitaciones son que los datos llegan solo hasta junio de 2025, 
 \bibitem{ieee730} IEEE, \emph{IEEE Standard for Software Quality Assurance Plans}, IEEE Std 730-2002, 2002.
 \bibitem{ieee829} IEEE, \emph{IEEE Standard for Software and System Test Documentation}, IEEE Std 829-2008, 2008.
 \bibitem{istqb2023} International Software Testing Qualifications Board, \emph{Certified Tester Foundation Level Syllabus}, v4.0, 2023. [En línea]. Disponible: \url{https://www.istqb.org}
+\bibitem{iso42001} ISO/IEC, \emph{Information technology---Artificial intelligence---Management system}, ISO/IEC 42001:2023, 1st ed., dic. 2023.
+\bibitem{modulos42001} Modulos, ``ISO/IEC 42001:2023 Annexes A--D: Reference controls, implementation guidance, objectives, and sectors,'' Modulos Docs. [En línea]. Disponible: \url{https://docs.modulos.ai/frameworks/iso-42001/annexes-a-d.html}
 \bibitem{scrum2020} K. Schwaber y J. Sutherland, \emph{The Scrum Guide}, 2020. [En línea]. Disponible: \url{https://scrumguides.org}
 \bibitem{sommerville2011} I. Sommerville, \emph{Software Engineering}, 10th ed. Boston, MA, USA: Pearson, 2016.
 \bibitem{ieee830} IEEE Computer Society, \emph{IEEE Recommended Practice for Software Requirements Specifications}, IEEE Std 830-1998, 1998.
