@@ -24,14 +24,15 @@ tex = tex.replace("\\begin{thebibliography}{99}", "\\section*{Referencias}").rep
 
 # 2. Cabecera: título, autores y resúmenes como texto plano que pandoc no descarta.
 titulo = re.search(r"\\title\{(.+?)\}\n", tex).group(1)
-autores = re.search(r"\\IEEEauthorblockN\{(.+?)\}\n\\IEEEauthorblockA\{(.+?)\}", tex, re.S)
+autores = re.search(r"\\IEEEauthorblockN\{(.+?)\}\n\\IEEEauthorblockA\{(.+?)\}\n\}", tex, re.S)
 cuerpo = tex[tex.index("\\maketitle") + len("\\maketitle"):tex.index("\\end{document}")]
 cuerpo = cuerpo.replace("\\renewcommand{\\abstractname}{Abstract}", "")
 resumenes = re.findall(r"\\begin\{abstract\}(.+?)\\end\{abstract\}", cuerpo, re.S)
 clave = re.search(r"\\begin\{IEEEkeywords\}(.+?)\\end\{IEEEkeywords\}", cuerpo, re.S).group(1).strip()
 cuerpo = re.sub(r"\\begin\{abstract\}.+?\\end\{abstract\}|\\begin\{IEEEkeywords\}.+?\\end\{IEEEkeywords\}", "", cuerpo, flags=re.S)
 cab = ("TITULO " + titulo + "\n\nAUTORES " + autores.group(1).replace("\\\\", " ") +
-       "\n\nAFIL " + autores.group(2).replace("\\\\", ", ") +
+       "\n\nAFIL " + ", ".join(x.strip() for x in autores.group(2).split("\\\\") if "@" not in x) +
+       "".join("\n\nCORREO " + x.strip() for x in autores.group(2).split("\\\\") if "@" in x) +
        "\n\nRESUMEN " + resumenes[0].strip() + "\n\nABSTRACT " + resumenes[1].strip() +
        "\n\nCLAVES " + clave + "\n\nFINCABECERA\n\n")
 pre = tex[:tex.index("\\begin{document}") + len("\\begin{document}")]
@@ -109,6 +110,7 @@ for p in d.paragraphs:
     if t.startswith("TITULO "): resaltar(p, "TITULO ", 22)
     elif t.startswith("AUTORES "): resaltar(p, "AUTORES ", 11)
     elif t.startswith("AFIL "): resaltar(p, "AFIL ", 10, cursiva=True)
+    elif t.startswith("CORREO "): resaltar(p, "CORREO ", 9)
     elif t.startswith("RESUMEN "): resaltar(p, "RESUMEN ", 9, negrita=True, centro=False, prefijo="Resumen—")
     elif t.startswith("ABSTRACT "): resaltar(p, "ABSTRACT ", 9, negrita=True, centro=False, prefijo="Abstract—")
     elif t.startswith("CLAVES "): resaltar(p, "CLAVES ", 9, negrita=True, centro=False, prefijo="Palabras clave—")
