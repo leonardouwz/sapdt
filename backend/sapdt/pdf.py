@@ -1,5 +1,5 @@
 """PDF mínimo (solo biblioteca estándar): título + tabla en texto, A4 horizontal, con paginación.
-ponytail: sin gráficos ni columnas con ancho propio; si se piden, usar una librería (reportlab)."""
+ponytail: sin gráficos; si se piden, usar una librería (reportlab)."""
 
 ANCHO, ALTO, MARGEN, LINEA, POR_PAGINA = 842, 595, 40, 14, 31
 
@@ -14,12 +14,15 @@ def tabla_pdf(titulo, encabezado, filas, max_filas=500):
     """Devuelve los bytes de un PDF. Corta en max_filas y lo avisa al final."""
     cortado = len(filas) > max_filas
     filas = filas[:max_filas]
-    n = len(encabezado)
-    col = (ANCHO - 2 * MARGEN) // n
-    chars = max(col // 5, 4)  # Helvetica 8 pt ~ 4,5 pt por letra
+    encabezado = [str(h).replace("_", " ") for h in encabezado]
+    # ancho de cada columna según su texto más largo (tope 40 letras), repartido en el ancho útil
+    largo = [min(max([len(h)] + [len(str(f[i])) for f in filas if f[i] is not None]), 40) + 2 for i, h in enumerate(encabezado)]
+    escala = (ANCHO - 2 * MARGEN) / sum(largo)
+    xs = [MARGEN + escala * sum(largo[:i]) for i in range(len(largo))]
+    chars = [max(int(escala * l / 4.6) - 1, 3) for l in largo]  # Helvetica 8 pt ~ 4,5 pt por letra
 
     def fila(vals, y):
-        return "".join(f"BT /F1 8 Tf {MARGEN + i * col} {y} Td ({_esc(str(v if v is not None else '')[:chars])}) Tj ET\n" for i, v in enumerate(vals))
+        return "".join(f"BT /F1 8 Tf {xs[i]:.1f} {y} Td ({_esc(str(v if v is not None else '')[:chars[i]])}) Tj ET\n" for i, v in enumerate(vals))
 
     trozos = [filas[i:i + POR_PAGINA] for i in range(0, len(filas), POR_PAGINA)] or [[]]
     paginas = []

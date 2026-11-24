@@ -121,5 +121,6 @@ export function filterDirectory(q: Omit<DirectoryQuery, "page" | "pageSize">): E
 export function searchDirectory(q: DirectoryQuery): DirectoryResult {
   const all = filterDirectory(q);
   const start = (q.page - 1) * q.pageSize;
-  return { items: all.slice(start, start + q.pageSize), total: all.length, page: q.page, pageSize: q.pageSize, agregados: aggregateCapacity(all) };
+  const provincias = q.departamento ? [...new Set(filterDirectory({ departamento: q.departamento }).map((e) => e.provincia))].sort() : [];
+  return { items: all.slice(start, start + q.pageSize), total: all.length, page: q.page, pageSize: q.pageSize, agregados: aggregateCapacity(all), provincias };
 }

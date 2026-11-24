@@ -68,4 +68,6 @@ export interface CapacityAggregates {
 
 export interface DirectoryResult extends Paginated<Establecimiento> {
   agregados: CapacityAggregates;
+  /** Provincias del departamento elegido (vacío si no hay departamento). */
+  provincias?: string[];
 }

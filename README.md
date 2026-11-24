@@ -24,8 +24,8 @@ Para gobiernos regionales, cámaras de turismo, hoteleros y emprendedores que ne
 | 📈 **Tendencias y temporadas** | Evolución mensual de arribos o pernoctaciones en el rango que elijas, y un semáforo que clasifica cada mes del año en temporada **alta, media o baja** (percentiles 75 y 25). |
 | 🔮 **Simulador de proyecciones** | Pronostica los arribos a 3 o 6 meses con promedio móvil o suavizado exponencial, e indica qué tan confiable es la estimación (error medio comprobado con los últimos 12 meses reales). |
 | ⚖️ **Comparador interregional** | Compara de 2 a 5 regiones entre dos periodos: arribos y variación porcentual total, nacional y extranjera. |
-| 🏨 **Explorador del directorio** | Busca hospedajes formales por región, clase (hotel, hostal, albergue…) y categoría (1 a 5 estrellas), con totales de habitaciones y camas. |
-| 📄 **Exportación** | Cada reporte se descarga en **CSV** (abre bien en Excel) o **PDF**. |
+| 🏨 **Explorador del directorio** | Busca hospedajes formales por región, provincia, clase (hotel, hostal, albergue…) y categoría (1 a 5 estrellas), con totales de habitaciones y camas. |
+| 📄 **Exportación** | Cada reporte (dashboard, tendencias, proyecciones, comparador y directorio) se descarga en **CSV** (abre bien en Excel) o **PDF**. |
 
 <table>
 <tr>
@@ -93,6 +93,7 @@ cd ..\frontend
 npm install --legacy-peer-deps
 npx vitest run
 ```
+En GitHub se ejecutan solas en cada push y pull request (pestaña **Actions**, flujo `Pruebas`).
 
 ## Probar en local (Windows)
 Requiere Python 3 y Node.js. Doble clic en `iniciar.bat`: abre la API (puerto 8000) y la interfaz (http://127.0.0.1:5199).
