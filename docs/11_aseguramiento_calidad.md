@@ -54,7 +54,6 @@ Diseño de casos: particiones de equivalencia (archivo válido / esquema descono
 
 | Pendiente | Impacto | Acción |
 |-----------|---------|--------|
-| Prueba manual del botón "Descargar PDF" en la web | Bajo (la API ya tiene prueba automática del PDF) | Probar en la URL desplegada antes de la presentación |
 | Medición formal del tiempo de respuesta (RNF-05) | Bajo | Medir `/api/series` con el histórico completo |
 | Error de proyección de 10 % a 16 % (MAPE) | Medio | Se muestra junto al pronóstico; se puede probar otro modelo |
 | Datos solo hasta junio de 2025 | Bajo | Se indica en la interfaz; la carga admite archivos nuevos |
