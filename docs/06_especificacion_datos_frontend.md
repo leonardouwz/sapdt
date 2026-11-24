@@ -85,7 +85,7 @@ Clave única: (`anio`, `mes`, `id_clase`, `id_categoria`, `ubigeo`).
 `id_clase`: `00` No clasificado · `01` Hotel · `02` Apart Hotel · `03` Hostal · `05` Albergue · `14` Resort · `16` Ecolodge · **`TT` Todas consolidadas**
 `id_categoria`: `00` No categorizado · `01` 1 estrella · `02` 2 · `03` 3 · `04` 4 · `05` 5 estrellas · `12` Albergue · `13` Ecolodge · **`TT` Todas consolidadas**
 
-### 3.4 ⚠️ Regla crítica: jerarquía de totales [Verificado]
+### 3.4 Regla crítica: jerarquía de totales [Verificado]
 
 El archivo mezcla detalle y totales. **Sumar todas las filas da 4× el total real.**
 

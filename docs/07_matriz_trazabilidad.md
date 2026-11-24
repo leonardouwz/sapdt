@@ -8,14 +8,14 @@ Cómo correr todas las pruebas: ver la sección **Pruebas** del [README](../READ
 
 | RF | Complejidad | Caso de uso | Backend (Python) | API REST | Frontend (pantalla) | Prueba automática | Estado |
 |----|-------------|-------------|------------------|----------|---------------------|-------------------|--------|
-| RF-01 Ingesta y consolidación | Alta | CU-01 Cargar datos | `sapdt/ingesta.py` (`IngestService`), `normalizador.py`, `validador.py`, `reparar.py`, `lectura.py`, `esquemas.py`, `almacen.py`, `cargar.py` | — (proceso por lotes) | — | `tests/test_ingesta.py` (`demo`, `demo_reparar`) | ✅ Pasa |
-| RF-02 Cruce geográfico y temporal | Alta | CU-02 Consolidar y cruzar | `sapdt/cruce.py` (`cruzar`, `reporte`) | `/api/regiones`, `/api/regiones/{cod}` | Dashboard (`routes/index.tsx`) | `tests/test_cruce.py`; `tests/test_api.py` (oferta por región) | ✅ Pasa |
-| RF-03 Proyección 3–6 meses | Alta | CU-03 Ver proyección | `sapdt/analisis.py` (`proyectar`, `PromedioMovil`, `SuavizadoExponencial`, `EstacionalIngenuo`); `api.py` (`pronosticar`, `backtest`) | `/api/proyeccion` | Simulador (`routes/proyecciones.tsx`, `domain/forecast.ts`, `domain/confidence.ts`) | `tests/test_analisis.py`; `tests/test_api.py`; `src/test/domain.test.ts` ("confidence bounds") | ✅ Pasa |
-| RF-04 Temporada alta/media/baja | Media | CU-04 Consultar temporada | `sapdt/analisis.py` (`temporada`); `api.py` (`temporada`, `percentil`) | `/api/temporada` | Tendencias (`routes/tendencias.tsx`, `components/season/SeasonMatrix.tsx`, `domain/seasonality.ts`) | `tests/test_analisis.py`; `tests/test_api.py`; `domain.test.ts` ("percentile linear", "season s/d") | ✅ Pasa |
-| RF-05 Comparativos entre regiones | Media | CU-05 Comparar regiones | `sapdt/analisis.py` (`comparar`); `api.py` (`comparativo`, `validar_rango`) | `/api/comparativo` | Comparador (`routes/comparador.tsx`, `components/compare/VariationTable.tsx`, `domain/compare.ts`) | `tests/test_analisis.py` (rango inválido); `tests/test_api.py`; `domain.test.ts` ("variation null on base 0") | ✅ Pasa |
-| RF-06 Exploración del directorio | Media | CU-06 Explorar directorio | `sapdt/analisis.py` (`buscar_directorio`); `api.py` (`filtrar_directorio`, `capacidad`) | `/api/establecimientos` | Directorio (`routes/directorio.tsx`, `components/directory/*`) | `tests/test_analisis.py` (filtro clase + categoría); `tests/test_api.py` | ✅ Pasa |
-| RF-07 Series históricas | Baja | CU-07 Ver series | `sapdt/analisis.py` (`serie`); `api.py` (`puntos`) | `/api/series` | Dashboard y Tendencias (`components/charts/charts.tsx`) | `tests/test_api.py` (rango y marca de atípico); `domain.test.ts` ("periods") | ✅ Pasa |
-| RF-08 Exportación CSV/PDF | Baja | CU-08 Exportar | `sapdt/analisis.py` (`exportar_csv`); `sapdt/pdf.py` (`tabla_pdf`); `api.py` (`exportar`) | `/api/export/{reporte}` | Botones de exportación (`services/mock/export/*`) | `tests/test_analisis.py` (CSV reabre igual); `tests/test_api.py` (cabecera CSV, PDF válido) | ✅ CSV probado · PDF: falta prueba manual del botón en la web |
+| RF-01 Ingesta y consolidación | Alta | CU-01 Cargar datos | `sapdt/ingesta.py` (`IngestService`), `normalizador.py`, `validador.py`, `reparar.py`, `lectura.py`, `esquemas.py`, `almacen.py`, `cargar.py` | — (proceso por lotes) | — | `tests/test_ingesta.py` (`demo`, `demo_reparar`) | Pasa |
+| RF-02 Cruce geográfico y temporal | Alta | CU-02 Consolidar y cruzar | `sapdt/cruce.py` (`cruzar`, `reporte`) | `/api/regiones`, `/api/regiones/{cod}` | Dashboard (`routes/index.tsx`) | `tests/test_cruce.py`; `tests/test_api.py` (oferta por región) | Pasa |
+| RF-03 Proyección 3–6 meses | Alta | CU-03 Ver proyección | `sapdt/analisis.py` (`proyectar`, `PromedioMovil`, `SuavizadoExponencial`, `EstacionalIngenuo`); `api.py` (`pronosticar`, `backtest`) | `/api/proyeccion` | Simulador (`routes/proyecciones.tsx`, `domain/forecast.ts`, `domain/confidence.ts`) | `tests/test_analisis.py`; `tests/test_api.py`; `src/test/domain.test.ts` ("confidence bounds") | Pasa |
+| RF-04 Temporada alta/media/baja | Media | CU-04 Consultar temporada | `sapdt/analisis.py` (`temporada`); `api.py` (`temporada`, `percentil`) | `/api/temporada` | Tendencias (`routes/tendencias.tsx`, `components/season/SeasonMatrix.tsx`, `domain/seasonality.ts`) | `tests/test_analisis.py`; `tests/test_api.py`; `domain.test.ts` ("percentile linear", "season s/d") | Pasa |
+| RF-05 Comparativos entre regiones | Media | CU-05 Comparar regiones | `sapdt/analisis.py` (`comparar`); `api.py` (`comparativo`, `validar_rango`) | `/api/comparativo` | Comparador (`routes/comparador.tsx`, `components/compare/VariationTable.tsx`, `domain/compare.ts`) | `tests/test_analisis.py` (rango inválido); `tests/test_api.py`; `domain.test.ts` ("variation null on base 0") | Pasa |
+| RF-06 Exploración del directorio | Media | CU-06 Explorar directorio | `sapdt/analisis.py` (`buscar_directorio`); `api.py` (`filtrar_directorio`, `capacidad`) | `/api/establecimientos` | Directorio (`routes/directorio.tsx`, `components/directory/*`) | `tests/test_analisis.py` (filtro clase + categoría); `tests/test_api.py` | Pasa |
+| RF-07 Series históricas | Baja | CU-07 Ver series | `sapdt/analisis.py` (`serie`); `api.py` (`puntos`) | `/api/series` | Dashboard y Tendencias (`components/charts/charts.tsx`) | `tests/test_api.py` (rango y marca de atípico); `domain.test.ts` ("periods") | Pasa |
+| RF-08 Exportación CSV/PDF | Baja | CU-08 Exportar | `sapdt/analisis.py` (`exportar_csv`); `sapdt/pdf.py` (`tabla_pdf`); `api.py` (`exportar`) | `/api/export/{reporte}` | Botones de exportación (`services/mock/export/*`) | `tests/test_analisis.py` (CSV reabre igual); `tests/test_api.py` (cabecera CSV, PDF válido) | CSV probado · PDF: falta prueba manual del botón en la web |
 
 ## 2. Criterio de aceptación → verificación
 
@@ -53,12 +53,12 @@ Cómo correr todas las pruebas: ver la sección **Pruebas** del [README](../READ
 | RNF-06 | Portabilidad | Despliegue solo con variables de entorno (`HOST`, `PORT`, `ALLOWED_ORIGIN`); ver [arquitectura](09_arquitectura_nube.md) |
 
 ## 4. Resultado de la última ejecución
-Fecha: 23-nov-2026, rama `claude/project-thread-97y6p5` (código igual a `main`).
+Fecha: 24-nov-2026, sobre `main` con los cambios del Prototipo (PR #3). Las mismas baterías corren en GitHub Actions en cada push y pull request.
 
 ```
 python -m tests.test_ingesta   → OK · OK reparar
 python -m tests.test_cruce     → OK cruce
 python -m tests.test_analisis  → OK analisis
 python -m tests.test_api       → OK api
-cd frontend && npx vitest run  → 2 archivos, 13 pruebas pasadas
+cd frontend && npx vitest run  → 3 archivos, 15 pruebas pasadas
 ```
