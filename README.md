@@ -105,6 +105,18 @@ python -m sapdt.cargar datos_crudos bd\sapdt.db
 python -m sapdt.cruce bd\sapdt.db
 ```
 
+## Documentación técnica
+| Documento | Contenido |
+|---|---|
+| [Catálogo de requisitos](docs/01_catalogo_requisitos_final.md) | 8 RF (3 alta, 3 media, 2 baja), criterios de aceptación y RNF |
+| [Matriz de trazabilidad](docs/07_matriz_trazabilidad.md) | Requisito → código → prueba, con el último resultado de las pruebas |
+| [Gestión de configuración](docs/08_gestion_configuracion.md) | Ramas, commits, pull requests, versiones y releases |
+| [Arquitectura en la nube](docs/09_arquitectura_nube.md) | Diagrama en Google Cloud Run y decisiones de diseño |
+| [Modelo de proceso](docs/10_modelo_proceso.md) | Incremental con Scrum adaptado: sprints, roles y artefactos |
+| [Aseguramiento de la calidad](docs/11_aseguramiento_calidad.md) | Métricas ISO/IEC 25010, calidad de datos y estrategia de pruebas |
+| [Cronograma y roles](docs/03_cronograma_roles_proceso.md) | Gantt, responsables y riesgos |
+| [Despliegue](DEPLOY.md) | Pasos para publicar en Cloud Run |
+
 ## Estructura del repositorio
 | Carpeta | Contenido |
 |---|---|
@@ -112,7 +124,7 @@ python -m sapdt.cruce bd\sapdt.db
 | `backend/bd/sapdt.db` | Base de datos ya cargada con los datos reales. |
 | `backend/datos_crudos/` | Archivos CSV originales descargados del portal. |
 | `frontend/` | Interfaz web. |
-| `docs/` | Documentos del Hito 1: requisitos, perfilado de datos, cronograma y diagramas. |
+| `docs/` | Documentación técnica: requisitos, trazabilidad, configuración, arquitectura, proceso, calidad y diagramas. |
 
 ## Equipo
 Curso de **Calidad de Software** — Universidad La Salle, Arequipa (2026).
