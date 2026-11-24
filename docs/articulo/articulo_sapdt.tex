@@ -210,12 +210,32 @@ RNF-06 & Despliegue en Cloud Run con variables de entorno & Cumple \\
 \end{tabular}
 \end{table}
 
-[POR COMPLETAR: el curso propone métricas como la cobertura de código, la complejidad ciclomática, la eficiencia de detección de defectos (DDE) y la disponibilidad; el proyecto aún no las mide. Si el equipo mide alguna, o el tiempo de respuesta en Cloud Run, o hace pruebas de aceptación con usuarios, agregar aquí los resultados.]
+\subsection{Métricas de calidad del código}
+Se midieron dos métricas propuestas en el curso sobre el paquete \texttt{sapdt} del backend (Tabla~\ref{tab:metricas}): la cobertura de sentencias y de ramas con \texttt{coverage.py} al ejecutar las cuatro baterías de pruebas, y la complejidad ciclomática de McCabe \cite{mccabe1976} con \texttt{radon}. Se excluyeron de la cobertura los dos scripts de línea de comandos (\texttt{cargar.py} y \texttt{reportes.py}), que se ejecutan a mano y no tienen pruebas. Las funciones de mayor complejidad son la carga de un archivo (\texttt{IngestService.cargar}, 30) y la generación del reporte de calidad (21); son las candidatas a dividir en una siguiente iteración.
+
+\begin{table}[t]
+\caption{Métricas de calidad del código del backend}\label{tab:metricas}
+\centering
+\begin{tabular}{@{}lr@{}}
+\toprule
+Métrica & Valor \\
+\midrule
+Cobertura de sentencias & 81,6\,\% (529 de 648) \\
+Cobertura de ramas & 69,9\,\% (144 de 206) \\
+Funciones y métodos analizados & 69 \\
+Complejidad ciclomática media & 5,8 \\
+Funciones con complejidad $\leq 10$ & 55 (80\,\%) \\
+Complejidad máxima & 30 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+[POR COMPLETAR: la cobertura de la interfaz web, la eficiencia de detección de defectos (DDE), el tiempo de respuesta en Cloud Run y las pruebas de aceptación con usuarios aún no se miden; agregarlos aquí si el equipo los obtiene.]
 
 \section{Conclusiones}\label{sec:conclusiones}
 SAPDT cumple los ocho requisitos funcionales sobre datos abiertos reales y está desplegado en Google Cloud Run. El enfoque de calidad del proyecto se reflejó en que la carga no perdió ninguna de las 66\,981 filas en silencio: cada observación y cada reparación quedó registrada y probada. La evaluación de los modelos de proyección mostró errores medios de 10,7\,\% a 12,7\,\%, por lo que el sistema muestra siempre el error junto al pronóstico en lugar de presentarlo como una cifra exacta.
 
-Las principales limitaciones son que los datos llegan solo hasta junio de 2025, que el PDF exportado es una tabla sencilla y que la medición de modificabilidad aún debe repetirse sobre el código final. Como trabajo futuro se propone documentar las pruebas según IEEE 829, medir cobertura y complejidad ciclomática, incorporar modelos estacionales con tendencia, automatizar la descarga periódica desde el portal y, si los datos pasan a actualizarse con frecuencia, migrar la base a un servicio administrado. El código, la documentación y la guía de despliegue están en \url{https://github.com/leonardouwz/sapdt}, y la aplicación en \url{https://sapdt-web-606560700752.us-central1.run.app}.
+Las principales limitaciones son que los datos llegan solo hasta junio de 2025, que el PDF exportado es una tabla sencilla y que la medición de modificabilidad aún debe repetirse sobre el código final. Como trabajo futuro se propone documentar las pruebas según IEEE 829, subir la cobertura de ramas y dividir las funciones de complejidad mayor a 10, incorporar modelos estacionales con tendencia, automatizar la descarga periódica desde el portal y, si los datos pasan a actualizarse con frecuencia, migrar la base a un servicio administrado. El código, la documentación y la guía de despliegue están en \url{https://github.com/leonardouwz/sapdt}, y la aplicación en \url{https://sapdt-web-606560700752.us-central1.run.app}.
 
 \begin{thebibliography}{99}
 \bibitem{pnda} Plataforma Nacional de Datos Abiertos, ``Indicadores de ocupabilidad de los establecimientos de hospedaje y Directorio de establecimientos de hospedaje calificados,'' MINCETUR, 2025. [En línea]. Disponible: \url{https://www.datosabiertos.gob.pe}
@@ -236,6 +256,7 @@ Las principales limitaciones son que los datos llegan solo hasta junio de 2025, 
 \bibitem{ieee830} IEEE Computer Society, \emph{IEEE Recommended Practice for Software Requirements Specifications}, IEEE Std 830-1998, 1998.
 \bibitem{pressman2020} R. S. Pressman y B. R. Maxim, \emph{Ingeniería del software: un enfoque práctico}, 9.ª ed. México: McGraw-Hill, 2020.
 \bibitem{cloudrun} Google Cloud, ``Cloud Run documentation.'' [En línea]. Disponible: \url{https://cloud.google.com/run/docs}
+\bibitem{mccabe1976} T. J. McCabe, ``A complexity measure,'' \emph{IEEE Transactions on Software Engineering}, vol. SE-2, no. 4, pp. 308--320, 1976.
 \end{thebibliography}
 
 \end{document}
